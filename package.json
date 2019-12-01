@@ -1,0 +1,54 @@
+{
+  "name": "ios-action-safe",
+  "version": "0.0.1",
+  "description": "iOS bottom bar and urlbar helper",
+  "entry": "src/ios-action-safe.js",
+  "browser": "dist/ios-action-safe.min.js",
+  "main": "dist/ios-action-safe.js",
+  "module": "dist/ios-action-safe.es.js",
+  "scriptname": "IosActionSafe",
+  "scripts": {
+    "build": "rollup -c",
+    "clean": "rimraf ./dist",
+    "demo": "http-server ./ -o",
+    "lint": "eslint ./src/*.js",
+    "prepublish": "npm run clean && npm run build",
+    "precommit": "npm run lint && npm run build",
+    "tag": "npm version minor --no-git-tag-version && npm run build && PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git commit -am \"$PACKAGE_VERSION release\" && git tag v$PACKAGE_VERSION",
+    "patchTag": "npm version patch --no-git-tag-version && npm run build && PACKAGE_VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]') && git commit -am \"$PACKAGE_VERSION release\" && git tag v$PACKAGE_VERSION"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djpogo/ios-action-safe.git"
+  },
+  "keywords": [
+    "ios",
+    "bottombar",
+    "resize",
+    "urlbar",
+    "padding",
+    "action",
+    "sage"
+  ],
+  "author": "djpogo",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/djpogo/ios-action-safe/issues"
+  },
+  "homepage": "https://github.com/djpogo/ios-action-safe#readme",
+  "devDependencies": {
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "eslint": "^6.7.2",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "rimraf": "^3.0.0",
+    "rollup": "^1.27.6",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-filesize": "^6.2.1",
+    "rollup-plugin-license": "^0.12.1",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-uglify": "^6.0.3"
+  }
+}

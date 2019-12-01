@@ -1,0 +1,31 @@
+{
+    "extends": ["eslint:recommended", "airbnb-base"],
+    "parserOptions": { 
+        "sourceType": "module",
+        "ecmaVersion": 2018 
+    },
+    "env": {
+        "es6": true,
+        "browser": true
+    },
+    "rules": {
+        "valid-jsdoc": ["error", {
+            "requireParamDescription": false,
+            "requireReturnDescription": false,
+            "requireReturn": false,
+            "prefer": {
+                "returns": "return"
+            }
+        }],
+        "require-jsdoc": ["error", {
+            "require": {
+              "FunctionDeclaration": true,
+              "MethodDefinition": true,
+              "ClassDeclaration": true
+            }
+          }],
+        "no-unused-vars": [
+            "error", {"args": "none"}
+        ]
+    }
+}
