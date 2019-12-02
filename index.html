@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name=viewport content="width=device-width,initial-scale=1">
+        <title>ios action safe</title>
+        <meta name=theme-color content="#123456">
+        <style>
+            :root {
+                --visibleWidth: 100vw;
+                --visibleHeight: 100vh;
+            }
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+            }
+
+            html {
+                margin: 0;
+                padding: 0;
+                background-color: hsl(0, 0%, 100%);
+                color: hsl(0, 0%, 20%);
+                width: 100vw;
+                max-width: 100%;
+                overflow-x: hidden;
+                height: 100vh;
+                min-height: 100%;
+            }
+            body {
+                height: 5000px;
+                position: relative;
+            }
+            .overlay {
+                position: fixed;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                top: 0;
+                left: 0;
+                width: var(--visibleWidth);
+                height: var(--visibleHeight);
+                z-index: 12;
+                background-color: hsla(0, 0%, 0%, .2);
+            }
+
+            .overlay__content {
+                padding: 12px 10px;
+                width: 300px;
+                height: auto;
+                border: 1px solid hsla(0, 0%, 0%, .9);
+                color: hsl(0, 0%, 20%);
+                display: block;
+                list-style: none;
+                overflow: visible;
+                background-color: hsla(0, 0%, 100%, .8);
+                font-family: monospace;
+            }
+        </style>
+    </head>
+    <body>
+        <section>
+            <h1>iOS Action Safe</h1>
+            <p>this body text is not important!</p>
+        </section>
+        <div class="overlay">
+            <dl class="overlay__content">
+                <dt>100vh</dt>
+                <dd id="value100vh"></dd>
+                <dt>100vw</dt>
+                <dd id="value100vw"></dd>
+                <dt>100% height</dt>
+                <dd id="value100h"></dd>
+                <dt>100% width</dt>
+                <dd id="value100w"></dd>
+                <dt>--visibleWidth</dt>
+                <dd id="visibleWidth"></dd>
+                <dt>--visibleHeight</dt>
+                <dd id="visibleHeight"></dd>
+                <dt>--visiblePadding</dt>
+                <dd id="visiblePadding"></dd>
+            </dl>
+        </div>
+        <script type="module">
+            import IosActionSafe from './dist/ios-action-safe.es.js';
+            let x = new IosActionSafe({callback: (event, data) => { updateSizes(event, data); }});
+
+            function updateSizes(event, data) {
+                document.querySelector('#value100vh').textContent = data.viewportHeight;
+                document.querySelector('#value100vw').textContent = data.viewportWidth;
+                document.querySelector('#value100h').textContent = data.visibleHeight;
+                document.querySelector('#value100w').textContent = data.visibleWidth;
+                document.querySelector('#visibleHeight').textContent = data.visibleHeight;
+                document.querySelector('#visibleWidth').textContent = data.visibleWidth;
+                document.querySelector('#visiblePadding').textContent = data.visiblePadding;
+            }
+        </script>
+    </body>
+</html>
