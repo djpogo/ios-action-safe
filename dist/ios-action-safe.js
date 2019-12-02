@@ -100,7 +100,7 @@
       _classCallCheck(this, _default);
 
       this.settings = _objectSpread2({
-        visibleHeight: '--visibileHeight',
+        visibleHeight: '--visibleHeight',
         visibleWidth: '--visibleWidth',
         visiblePadding: '--visiblePadding',
         callback: undefined
@@ -125,7 +125,7 @@
         this.viewportHeight = boundingRect.height;
         this.viewportWidth = boundingRect.width;
         this.bodyStyle.setProperty(this.settings.visibleHeight, "".concat(visibleHeight, "px"));
-        this.bodyStyle.setProperty(this.settings.visibleHeight, "".concat(visibleWidth, "px"));
+        this.bodyStyle.setProperty(this.settings.visibleWidth, "".concat(visibleWidth, "px"));
         this.bodyStyle.setProperty(this.settings.visiblePadding, "".concat(this.viewportHeight - visibleHeight, "px"));
 
         if (this.settings.callback) {

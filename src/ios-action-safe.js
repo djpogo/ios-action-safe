@@ -11,7 +11,7 @@ export default class {
    */
   constructor(customSettings = {}) {
     this.settings = {
-      visibleHeight: '--visibileHeight',
+      visibleHeight: '--visibleHeight',
       visibleWidth: '--visibleWidth',
       visiblePadding: '--visiblePadding',
       callback: undefined,
@@ -34,7 +34,7 @@ export default class {
     this.viewportHeight = boundingRect.height;
     this.viewportWidth = boundingRect.width;
     this.bodyStyle.setProperty(this.settings.visibleHeight, `${visibleHeight}px`);
-    this.bodyStyle.setProperty(this.settings.visibleHeight, `${visibleWidth}px`);
+    this.bodyStyle.setProperty(this.settings.visibleWidth, `${visibleWidth}px`);
     this.bodyStyle.setProperty(this.settings.visiblePadding, `${this.viewportHeight - visibleHeight}px`);
 
     if (this.settings.callback) {

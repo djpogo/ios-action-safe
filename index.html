@@ -46,15 +46,17 @@
 
             .overlay__content {
                 padding: 12px 10px;
-                width: 300px;
-                height: auto;
+                width: 100%;
+                height: 100%;
                 border: 1px solid hsla(0, 0%, 0%, .9);
                 color: hsl(0, 0%, 20%);
                 display: block;
-                list-style: none;
                 overflow: visible;
                 background-color: hsla(0, 0%, 100%, .8);
                 font-family: monospace;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
             }
         </style>
     </head>
@@ -64,22 +66,26 @@
             <p>this body text is not important!</p>
         </section>
         <div class="overlay">
-            <dl class="overlay__content">
-                <dt>100vh</dt>
-                <dd id="value100vh"></dd>
-                <dt>100vw</dt>
-                <dd id="value100vw"></dd>
-                <dt>100% height</dt>
-                <dd id="value100h"></dd>
-                <dt>100% width</dt>
-                <dd id="value100w"></dd>
-                <dt>--visibleWidth</dt>
-                <dd id="visibleWidth"></dd>
-                <dt>--visibleHeight</dt>
-                <dd id="visibleHeight"></dd>
-                <dt>--visiblePadding</dt>
-                <dd id="visiblePadding"></dd>
-            </dl>
+            <div class="overlay__content">
+                <h2>I am an overlay</h2>
+                <dl>
+                    <dt>100vh</dt>
+                    <dd id="value100vh"></dd>
+                    <dt>100vw</dt>
+                    <dd id="value100vw"></dd>
+                    <dt>100% height</dt>
+                    <dd id="value100h"></dd>
+                    <dt>100% width</dt>
+                    <dd id="value100w"></dd>
+                    <dt>--visibleWidth</dt>
+                    <dd id="visibleWidth"></dd>
+                    <dt>--visibleHeight</dt>
+                    <dd id="visibleHeight"></dd>
+                    <dt>--visiblePadding</dt>
+                    <dd id="visiblePadding"></dd>
+                </dl>
+                <button class="overlay__cta">CTA Button</button>
+            </div>
         </div>
         <script type="module">
             import IosActionSafe from './dist/ios-action-safe.es.js';
