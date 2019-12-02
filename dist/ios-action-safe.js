@@ -1,4 +1,4 @@
-/*! IosActionSafe - v0.0.1 - 2019-12-01
+/*! IosActionSafe - v0.0.1 - 2019-12-02
 * https://github.com/djpogo/ios-action-safe#readme
 * Copyright (c) 2019 ; Licensed  */
 
@@ -80,11 +80,13 @@
     return target;
   }
 
+  var viewportMeasreCss = 'display: block; width: 100vw; height: 100vh; visibility: hidden; position: absolute; top: -100vh; pointer-events: none';
   /**
    * IOS Action Safe
    * @description helper class to determine viewport height changings
    *  and provide custom css properties for you to adopt your UI.
    */
+
   var _default =
   /*#__PURE__*/
   function () {
@@ -98,21 +100,43 @@
       _classCallCheck(this, _default);
 
       this.settings = _objectSpread2({
-        viewHeight: '--viewHeight'
+        visibleHeight: '--visibileHeight',
+        visibleWidth: '--visibleWidth',
+        visiblePadding: '--visiblePadding',
+        callback: undefined
       }, customSettings);
       this.bodyStyle = document.documentElement.style;
-      this.resizeCallback();
+      this.measureViewport();
+      this.resizeCallback(null);
       this.setupListener();
     }
     /**
      * callback for resize event handler
+     * @param {ResizeEvent} event
      */
 
 
     _createClass(_default, [{
       key: "resizeCallback",
-      value: function resizeCallback() {
-        this.bodyStyle.setProperty(this.settings.viewHeight, window.innerHeight);
+      value: function resizeCallback(event) {
+        var visibleHeight = window.innerHeight;
+        var visibleWidth = window.innerWidth;
+        var boundingRect = this.viewportMeasure.getBoundingClientRect();
+        this.viewportHeight = boundingRect.height;
+        this.viewportWidth = boundingRect.width;
+        this.bodyStyle.setProperty(this.settings.visibleHeight, "".concat(visibleHeight, "px"));
+        this.bodyStyle.setProperty(this.settings.visibleHeight, "".concat(visibleWidth, "px"));
+        this.bodyStyle.setProperty(this.settings.visiblePadding, "".concat(this.viewportHeight - visibleHeight, "px"));
+
+        if (this.settings.callback) {
+          this.settings.callback(event, {
+            viewportHeight: this.viewportHeight,
+            viewportWidth: this.viewportWidth,
+            visibleHeight: visibleHeight,
+            visibleWidth: visibleWidth,
+            visiblePadding: this.viewportHeight - visibleHeight
+          });
+        }
       }
       /**
        * setup resize eventlistener, but only once
@@ -131,6 +155,20 @@
           return _this.resizeCallback();
         });
         this.listenerSetup = true;
+      }
+      /**
+       * calculate viewport dimensions
+       */
+
+    }, {
+      key: "measureViewport",
+      value: function measureViewport() {
+        this.viewportMeasure = document.createElement('div');
+        this.viewportMeasure.style = viewportMeasreCss;
+        var boundingRect = this.viewportMeasure.getBoundingClientRect();
+        document.documentElement.appendChild(this.viewportMeasure);
+        this.viewportHeight = boundingRect.height;
+        this.viewportWidth = boundingRect.width;
       }
     }]);
 
