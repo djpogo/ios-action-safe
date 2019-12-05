@@ -1,4 +1,4 @@
-/*! IosActionSafe - v0.0.1 - 2019-12-02
+/*! IosActionSafe - v0.1.0 - 2019-12-05
 * https://github.com/djpogo/ios-action-safe#readme
 * Copyright (c) 2019 ; Licensed  */
 
@@ -106,7 +106,7 @@
         callback: undefined
       }, customSettings);
       this.bodyStyle = document.documentElement.style;
-      this.measureViewport();
+      this.addViewportMeasurement();
       this.resizeCallback(null);
       this.setupListener();
     }
@@ -151,8 +151,14 @@
           return;
         }
 
-        window.addEventListener('resize', function () {
-          return _this.resizeCallback();
+        window.addEventListener('resize', function (event) {
+          if (_this.rafId) {
+            window.cancelAnimationFrame(_this.rafId);
+          }
+
+          _this.rafId = window.requestAnimationFrame(function () {
+            _this.resizeCallback(event);
+          });
         });
         this.listenerSetup = true;
       }
@@ -161,9 +167,9 @@
        */
 
     }, {
-      key: "measureViewport",
-      value: function measureViewport() {
-        this.viewportMeasure = document.createElement('div');
+      key: "addViewportMeasurement",
+      value: function addViewportMeasurement() {
+        this.viewportMeasure = document.createElement('aside');
         this.viewportMeasure.style = viewportMeasreCss;
         var boundingRect = this.viewportMeasure.getBoundingClientRect();
         document.documentElement.appendChild(this.viewportMeasure);

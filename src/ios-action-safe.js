@@ -18,7 +18,7 @@ export default class {
       ...customSettings,
     };
     this.bodyStyle = document.documentElement.style;
-    this.measureViewport();
+    this.addViewportMeasurement();
     this.resizeCallback(null);
     this.setupListener();
   }
@@ -33,6 +33,7 @@ export default class {
     const boundingRect = this.viewportMeasure.getBoundingClientRect();
     this.viewportHeight = boundingRect.height;
     this.viewportWidth = boundingRect.width;
+
     this.bodyStyle.setProperty(this.settings.visibleHeight, `${visibleHeight}px`);
     this.bodyStyle.setProperty(this.settings.visibleWidth, `${visibleWidth}px`);
     this.bodyStyle.setProperty(this.settings.visiblePadding, `${this.viewportHeight - visibleHeight}px`);
@@ -55,15 +56,22 @@ export default class {
     if (this.listenerSetup) {
       return;
     }
-    window.addEventListener('resize', () => this.resizeCallback());
+    window.addEventListener('resize', (event) => {
+      if (this.rafId) {
+        window.cancelAnimationFrame(this.rafId);
+      }
+      this.rafId = window.requestAnimationFrame(() => {
+        this.resizeCallback(event);
+      });
+    });
     this.listenerSetup = true;
   }
 
   /**
    * calculate viewport dimensions
    */
-  measureViewport() {
-    this.viewportMeasure = document.createElement('div');
+  addViewportMeasurement() {
+    this.viewportMeasure = document.createElement('aside');
     this.viewportMeasure.style = viewportMeasreCss;
     const boundingRect = this.viewportMeasure.getBoundingClientRect();
     document.documentElement.appendChild(this.viewportMeasure);

@@ -1,4 +1,4 @@
-/*! IosActionSafe - v0.0.1 - 2019-12-02
+/*! IosActionSafe - v0.1.0 - 2019-12-05
 * https://github.com/djpogo/ios-action-safe#readme
 * Copyright (c) 2019 ; Licensed  */
 
@@ -23,7 +23,7 @@ class iosActionSafe {
       ...customSettings,
     };
     this.bodyStyle = document.documentElement.style;
-    this.measureViewport();
+    this.addViewportMeasurement();
     this.resizeCallback(null);
     this.setupListener();
   }
@@ -38,6 +38,7 @@ class iosActionSafe {
     const boundingRect = this.viewportMeasure.getBoundingClientRect();
     this.viewportHeight = boundingRect.height;
     this.viewportWidth = boundingRect.width;
+
     this.bodyStyle.setProperty(this.settings.visibleHeight, `${visibleHeight}px`);
     this.bodyStyle.setProperty(this.settings.visibleWidth, `${visibleWidth}px`);
     this.bodyStyle.setProperty(this.settings.visiblePadding, `${this.viewportHeight - visibleHeight}px`);
@@ -60,15 +61,22 @@ class iosActionSafe {
     if (this.listenerSetup) {
       return;
     }
-    window.addEventListener('resize', () => this.resizeCallback());
+    window.addEventListener('resize', (event) => {
+      if (this.rafId) {
+        window.cancelAnimationFrame(this.rafId);
+      }
+      this.rafId = window.requestAnimationFrame(() => {
+        this.resizeCallback(event);
+      });
+    });
     this.listenerSetup = true;
   }
 
   /**
    * calculate viewport dimensions
    */
-  measureViewport() {
-    this.viewportMeasure = document.createElement('div');
+  addViewportMeasurement() {
+    this.viewportMeasure = document.createElement('aside');
     this.viewportMeasure.style = viewportMeasreCss;
     const boundingRect = this.viewportMeasure.getBoundingClientRect();
     document.documentElement.appendChild(this.viewportMeasure);
