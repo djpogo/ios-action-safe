@@ -1,9 +1,9 @@
-/*! IosActionSafe - v0.1.0 - 2019-12-05
+/*! IosActionSafe - v0.1.1 - 2019-12-06
 * https://github.com/djpogo/ios-action-safe#readme
 * Copyright (c) 2019 ; Licensed  */
 
 
-const viewportMeasreCss = 'display: block; width: 100vw; height: 100vh; visibility: hidden; position: absolute; top: -100vh; pointer-events: none';
+const viewportMeasureCss = 'display: block; width: 100vw; height: 100vh; visibility: hidden; position: absolute; top: -100vh; pointer-events: none';
 /**
  * IOS Action Safe
  * @description helper class to determine viewport height changings
@@ -77,9 +77,9 @@ class iosActionSafe {
    */
   addViewportMeasurement() {
     this.viewportMeasure = document.createElement('aside');
-    this.viewportMeasure.style = viewportMeasreCss;
-    const boundingRect = this.viewportMeasure.getBoundingClientRect();
+    this.viewportMeasure.setAttribute('style', viewportMeasureCss);
     document.documentElement.appendChild(this.viewportMeasure);
+    const boundingRect = this.viewportMeasure.getBoundingClientRect();
     this.viewportHeight = boundingRect.height;
     this.viewportWidth = boundingRect.width;
   }

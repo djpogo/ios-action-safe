@@ -1,6 +1,6 @@
 {
   "name": "ios-action-safe",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "iOS bottom bar and urlbar helper",
   "entry": "src/ios-action-safe.js",
   "browser": "dist/ios-action-safe.min.js",
@@ -28,7 +28,7 @@
     "urlbar",
     "padding",
     "action",
-    "sage"
+    "safe"
   ],
   "author": "djpogo",
   "license": "GPL-3.0-or-later",
@@ -43,11 +43,11 @@
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
     "rimraf": "^3.0.0",
-    "rollup": "^1.27.6",
+    "rollup": "^1.27.8",
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-filesize": "^6.2.1",
-    "rollup-plugin-license": "^0.12.1",
+    "rollup-plugin-license": "^0.13.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-uglify": "^6.0.3"
   }
