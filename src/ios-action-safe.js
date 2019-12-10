@@ -61,6 +61,7 @@ export default class {
         window.cancelAnimationFrame(this.rafId);
       }
       this.rafId = window.requestAnimationFrame(() => {
+        this.rafId = null;
         this.resizeCallback(event);
       });
     });
