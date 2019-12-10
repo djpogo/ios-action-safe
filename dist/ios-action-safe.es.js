@@ -1,4 +1,4 @@
-/*! IosActionSafe - v0.1.1 - 2019-12-06
+/*! IosActionSafe - v0.1.1 - 2019-12-10
 * https://github.com/djpogo/ios-action-safe#readme
 * Copyright (c) 2019 ; Licensed  */
 
@@ -66,6 +66,7 @@ class iosActionSafe {
         window.cancelAnimationFrame(this.rafId);
       }
       this.rafId = window.requestAnimationFrame(() => {
+        this.rafId = null;
         this.resizeCallback(event);
       });
     });

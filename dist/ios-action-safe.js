@@ -1,4 +1,4 @@
-/*! IosActionSafe - v0.1.1 - 2019-12-06
+/*! IosActionSafe - v0.1.1 - 2019-12-10
 * https://github.com/djpogo/ios-action-safe#readme
 * Copyright (c) 2019 ; Licensed  */
 
@@ -157,6 +157,8 @@
           }
 
           _this.rafId = window.requestAnimationFrame(function () {
+            _this.rafId = null;
+
             _this.resizeCallback(event);
           });
         });
