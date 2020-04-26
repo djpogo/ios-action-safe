@@ -1,6 +1,6 @@
-/*! IosActionSafe - v0.1.1 - 2019-12-06
+/*! IosActionSafe - v0.1.1 - 2020-04-26
 * https://github.com/djpogo/ios-action-safe#readme
-* Copyright (c) 2019 ; Licensed  */
+* Copyright (c) 2020 ; Licensed  */
 
 
 const viewportMeasureCss = 'display: block; width: 100vw; height: 100vh; visibility: hidden; position: absolute; top: -100vh; pointer-events: none';

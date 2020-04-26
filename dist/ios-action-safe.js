@@ -1,6 +1,6 @@
-/*! IosActionSafe - v0.1.1 - 2019-12-06
+/*! IosActionSafe - v0.1.1 - 2020-04-26
 * https://github.com/djpogo/ios-action-safe#readme
-* Copyright (c) 2019 ; Licensed  */
+* Copyright (c) 2020 ; Licensed  */
 
 
 (function (global, factory) {
@@ -87,9 +87,7 @@
    *  and provide custom css properties for you to adopt your UI.
    */
 
-  var _default =
-  /*#__PURE__*/
-  function () {
+  var _default = /*#__PURE__*/function () {
     /**
      * constructor
      * @param {Object} customSettings
