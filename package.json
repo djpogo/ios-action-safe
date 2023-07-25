@@ -1,6 +1,6 @@
 {
   "name": "ios-action-safe",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "iOS bottom bar and urlbar helper",
   "entry": "src/ios-action-safe.js",
   "browser": "dist/ios-action-safe.min.js",

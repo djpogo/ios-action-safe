@@ -1,6 +1,6 @@
-/*! IosActionSafe - v0.1.1 - 2020-04-26
+/*! IosActionSafe - v0.2.0 - 2023-07-25
 * https://github.com/djpogo/ios-action-safe#readme
-* Copyright (c) 2020 ; Licensed  */
+* Copyright (c) 2023 ; Licensed  */
 
 
 (function (global, factory) {
@@ -80,7 +80,8 @@
     return target;
   }
 
-  var viewportMeasureCss = 'display: block; width: 100vw; height: 100vh; visibility: hidden; position: absolute; top: -100vh; pointer-events: none';
+  var viewportMeasureCss = 'display: block; width: 100vw; height: 100vh; visibility: hidden; position: absolute; top: -100vh; pointer-events: none; overflow: visible';
+  var viewportDivCss = 'display: block; visibility: hidden; position: absolute; top: -100vh; pointer-events: none; overflow: visible';
   /**
    * IOS Action Safe
    * @description helper class to determine viewport height changings
@@ -101,6 +102,12 @@
         visibleHeight: '--visibleHeight',
         visibleWidth: '--visibleWidth',
         visiblePadding: '--visiblePadding',
+        svw: '--svw',
+        svh: '--svh',
+        dvw: '--dvw',
+        dvh: '--dvh',
+        lvw: '--lvw',
+        lvh: '--lvh',
         callback: undefined
       }, customSettings);
       this.bodyStyle = document.documentElement.style;
@@ -120,11 +127,26 @@
         var visibleHeight = window.innerHeight;
         var visibleWidth = window.innerWidth;
         var boundingRect = this.viewportMeasure.getBoundingClientRect();
+        var boundingRectS = this.viewportDivS.getBoundingClientRect();
+        var boundingRectD = this.viewportDivD.getBoundingClientRect();
+        var boundingRectL = this.viewportDivL.getBoundingClientRect();
         this.viewportHeight = boundingRect.height;
         this.viewportWidth = boundingRect.width;
+        this.viewportHeightS = boundingRectS.height;
+        this.viewportWidthS = boundingRectS.width;
+        this.viewportHeightD = boundingRectD.height;
+        this.viewportWidthD = boundingRectD.width;
+        this.viewportHeightL = boundingRectL.height;
+        this.viewportWidthL = boundingRectL.width;
         this.bodyStyle.setProperty(this.settings.visibleHeight, "".concat(visibleHeight, "px"));
         this.bodyStyle.setProperty(this.settings.visibleWidth, "".concat(visibleWidth, "px"));
         this.bodyStyle.setProperty(this.settings.visiblePadding, "".concat(this.viewportHeight - visibleHeight, "px"));
+        this.bodyStyle.setProperty(this.settings.svw, "".concat(this.viewportWidthS, "px"));
+        this.bodyStyle.setProperty(this.settings.svh, "".concat(this.viewportHeightS, "px"));
+        this.bodyStyle.setProperty(this.settings.dvw, "".concat(this.viewportWidthD, "px"));
+        this.bodyStyle.setProperty(this.settings.dvh, "".concat(this.viewportHeightD, "px"));
+        this.bodyStyle.setProperty(this.settings.lvw, "".concat(this.viewportWidthL, "px"));
+        this.bodyStyle.setProperty(this.settings.lvh, "".concat(this.viewportHeightL, "px"));
 
         if (this.settings.callback) {
           this.settings.callback(event, {
@@ -132,7 +154,13 @@
             viewportWidth: this.viewportWidth,
             visibleHeight: visibleHeight,
             visibleWidth: visibleWidth,
-            visiblePadding: this.viewportHeight - visibleHeight
+            visiblePadding: this.viewportHeight - visibleHeight,
+            svw: this.viewportWidthS,
+            svh: this.viewportHeightS,
+            dvw: this.viewportWidthD,
+            dvh: this.viewportHeightD,
+            lvw: this.viewportWidthL,
+            lvh: this.viewportHeightL
           });
         }
       }
@@ -150,10 +178,7 @@
         }
 
         window.addEventListener('resize', function (event) {
-          if (_this.rafId) {
-            window.cancelAnimationFrame(_this.rafId);
-          }
-
+          window.cancelAnimationFrame(_this.rafId);
           _this.rafId = window.requestAnimationFrame(function () {
             _this.resizeCallback(event);
           });
@@ -169,6 +194,15 @@
       value: function addViewportMeasurement() {
         this.viewportMeasure = document.createElement('aside');
         this.viewportMeasure.setAttribute('style', viewportMeasureCss);
+        this.viewportDivS = document.createElement('div');
+        this.viewportDivS.setAttribute('style', "".concat(viewportDivCss, "; width: 100svw; height: 100svh;"));
+        this.viewportDivD = document.createElement('div');
+        this.viewportDivD.setAttribute('style', "".concat(viewportDivCss, "; width: 100dvw; height: 100dvh;"));
+        this.viewportDivL = document.createElement('div');
+        this.viewportDivL.setAttribute('style', "".concat(viewportDivCss, "; width: 100lvw; height: 100lvh;"));
+        this.viewportMeasure.appendChild(this.viewportDivS);
+        this.viewportMeasure.appendChild(this.viewportDivD);
+        this.viewportMeasure.appendChild(this.viewportDivL);
         document.documentElement.appendChild(this.viewportMeasure);
         var boundingRect = this.viewportMeasure.getBoundingClientRect();
         this.viewportHeight = boundingRect.height;
