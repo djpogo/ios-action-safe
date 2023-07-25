@@ -68,22 +68,21 @@
         <div class="overlay">
             <div class="overlay__content">
                 <h2>I am an overlay</h2>
-                <dl>
-                    <dt>100vh</dt>
-                    <dd id="value100vh"></dd>
-                    <dt>100vw</dt>
-                    <dd id="value100vw"></dd>
-                    <dt>100% height</dt>
-                    <dd id="value100h"></dd>
-                    <dt>100% width</dt>
-                    <dd id="value100w"></dd>
-                    <dt>--visibleWidth</dt>
-                    <dd id="visibleWidth"></dd>
-                    <dt>--visibleHeight</dt>
-                    <dd id="visibleHeight"></dd>
-                    <dt>--visiblePadding</dt>
-                    <dd id="visiblePadding"></dd>
-                </dl>
+                <ul>
+                    <li>100vh: <code id="value100vh"></code></li>
+                    <li>100vw: <code id="value100vw"></code></li>
+                    <li>100% height: <code id="value100h"></code></li>
+                    <li>100% width: <code id="value100w"></code></li>
+                    <li>--visibleHeight: <code id="visibleHeight"></code></li>
+                    <li>--visibleWidth: <code id="visibleWidth"></code></li>
+                    <li>--visiblePadding: <code id="visiblePadding"></code></li>
+                    <li>--svh: <code id="svh"></code></li>
+                    <li>--svw: <code id="svw"></code></li>
+                    <li>--dvh: <code id="dvh"></code></li>
+                    <li>--dvw: <code id="dvw"></code></li>
+                    <li>--lvh: <code id="lvh"></code></li>
+                    <li>--lvw: <code id="lvw"></code></li>
+                </ul>
                 <button class="overlay__cta">CTA Button</button>
             </div>
         </div>
@@ -99,6 +98,12 @@
                 document.querySelector('#visibleHeight').textContent = data.visibleHeight;
                 document.querySelector('#visibleWidth').textContent = data.visibleWidth;
                 document.querySelector('#visiblePadding').textContent = data.visiblePadding;
+                document.querySelector('#svh').textContent = data.svh;
+                document.querySelector('#svw').textContent = data.svw;
+                document.querySelector('#dvh').textContent = data.dvh;
+                document.querySelector('#dvw').textContent = data.dvw;
+                document.querySelector('#lvh').textContent = data.lvh;
+                document.querySelector('#lvw').textContent = data.lvw;
             }
         </script>
     </body>

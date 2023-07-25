@@ -1,4 +1,5 @@
-const viewportMeasureCss = 'display: block; width: 100vw; height: 100vh; visibility: hidden; position: absolute; top: -100vh; pointer-events: none';
+const viewportMeasureCss = 'display: block; width: 100vw; height: 100vh; visibility: hidden; position: absolute; top: -100vh; pointer-events: none; overflow: visible';
+const viewportDivCss = 'display: block; visibility: hidden; position: absolute; top: -100vh; pointer-events: none; overflow: visible';
 /**
  * IOS Action Safe
  * @description helper class to determine viewport height changings
@@ -14,6 +15,12 @@ export default class {
       visibleHeight: '--visibleHeight',
       visibleWidth: '--visibleWidth',
       visiblePadding: '--visiblePadding',
+      svw: '--svw',
+      svh: '--svh',
+      dvw: '--dvw',
+      dvh: '--dvh',
+      lvw: '--lvw',
+      lvh: '--lvh',
       callback: undefined,
       ...customSettings,
     };
@@ -31,12 +38,31 @@ export default class {
     const visibleHeight = window.innerHeight;
     const visibleWidth = window.innerWidth;
     const boundingRect = this.viewportMeasure.getBoundingClientRect();
+    const boundingRectS = this.viewportDivS.getBoundingClientRect();
+    const boundingRectD = this.viewportDivD.getBoundingClientRect();
+    const boundingRectL = this.viewportDivL.getBoundingClientRect();
+
     this.viewportHeight = boundingRect.height;
     this.viewportWidth = boundingRect.width;
+
+    this.viewportHeightS = boundingRectS.height;
+    this.viewportWidthS = boundingRectS.width;
+
+    this.viewportHeightD = boundingRectD.height;
+    this.viewportWidthD = boundingRectD.width;
+
+    this.viewportHeightL = boundingRectL.height;
+    this.viewportWidthL = boundingRectL.width;
 
     this.bodyStyle.setProperty(this.settings.visibleHeight, `${visibleHeight}px`);
     this.bodyStyle.setProperty(this.settings.visibleWidth, `${visibleWidth}px`);
     this.bodyStyle.setProperty(this.settings.visiblePadding, `${this.viewportHeight - visibleHeight}px`);
+    this.bodyStyle.setProperty(this.settings.svw, `${this.viewportWidthS}px`);
+    this.bodyStyle.setProperty(this.settings.svh, `${this.viewportHeightS}px`);
+    this.bodyStyle.setProperty(this.settings.dvw, `${this.viewportWidthD}px`);
+    this.bodyStyle.setProperty(this.settings.dvh, `${this.viewportHeightD}px`);
+    this.bodyStyle.setProperty(this.settings.lvw, `${this.viewportWidthL}px`);
+    this.bodyStyle.setProperty(this.settings.lvh, `${this.viewportHeightL}px`);
 
     if (this.settings.callback) {
       this.settings.callback(event, {
@@ -45,6 +71,12 @@ export default class {
         visibleHeight,
         visibleWidth,
         visiblePadding: this.viewportHeight - visibleHeight,
+        svw: this.viewportWidthS,
+        svh: this.viewportHeightS,
+        dvw: this.viewportWidthD,
+        dvh: this.viewportHeightD,
+        lvw: this.viewportWidthL,
+        lvh: this.viewportHeightL,
       });
     }
   }
@@ -57,9 +89,7 @@ export default class {
       return;
     }
     window.addEventListener('resize', (event) => {
-      if (this.rafId) {
-        window.cancelAnimationFrame(this.rafId);
-      }
+      window.cancelAnimationFrame(this.rafId);
       this.rafId = window.requestAnimationFrame(() => {
         this.resizeCallback(event);
       });
@@ -73,6 +103,15 @@ export default class {
   addViewportMeasurement() {
     this.viewportMeasure = document.createElement('aside');
     this.viewportMeasure.setAttribute('style', viewportMeasureCss);
+    this.viewportDivS = document.createElement('div');
+    this.viewportDivS.setAttribute('style', `${viewportDivCss}; width: 100svw; height: 100svh;`);
+    this.viewportDivD = document.createElement('div');
+    this.viewportDivD.setAttribute('style', `${viewportDivCss}; width: 100dvw; height: 100dvh;`);
+    this.viewportDivL = document.createElement('div');
+    this.viewportDivL.setAttribute('style', `${viewportDivCss}; width: 100lvw; height: 100lvh;`);
+    this.viewportMeasure.appendChild(this.viewportDivS);
+    this.viewportMeasure.appendChild(this.viewportDivD);
+    this.viewportMeasure.appendChild(this.viewportDivL);
     document.documentElement.appendChild(this.viewportMeasure);
     const boundingRect = this.viewportMeasure.getBoundingClientRect();
     this.viewportHeight = boundingRect.height;
