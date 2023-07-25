@@ -2,6 +2,8 @@
 
 Utilize CSS Custom Properties to style your overlay components with binding to window.innerHeight.
 
+With version `0.2.0` the "new" [relative length units](https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Values_and_units#relative_length_units) like `svh` and `dvh` etc. are also available as Custom Properties.
+
 ## How it works
 
 It adds an `aside` element into the dom with `100vw` and `100vh` dimensions and read out its width and height in `px`.
@@ -25,6 +27,30 @@ stores always the value of `window.innerHeight` suffixed with `px`.
 ### --visiblePadding
 
 stores the difference from  a `100vh` element and `window.innerHeight` suffixed with `px`.
+
+### --svw
+
+`Version 0.2.0`: The current value of `100svw`.
+
+### --svh
+
+`Version 0.2.0`: The current value of `100svh`.
+
+### --dvw
+
+`Version 0.2.0`: The current value of `100dvw`.
+
+### --dvh
+
+`Version 0.2.0`: The current value of `100dvh`.
+
+### --lvw
+
+`Version 0.2.0`: The current value of `100lvw`.
+
+### --lvh
+
+`Version 0.2.0`: The current value of `100lvh`.
 
 ## Setup
 
